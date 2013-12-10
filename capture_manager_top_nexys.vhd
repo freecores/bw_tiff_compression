@@ -92,7 +92,12 @@ begin
 		led1_o                      => led1_o,
 		led2_o                      => led2_o,
 		led3_o                      => led3_o,
-		sw_i                        => sw_i
+		sw_i                        => sw_i,
+		--Used for testbench purposes
+		CCITT4_run_len_code_o       => open,
+		CCITT4_run_len_code_width_o => open,
+		CCITT4_run_len_code_valid_o => open,
+		CCITT4_frame_finished_o     => open
 	);
 	
 end Behavioral;

@@ -24,7 +24,7 @@ entity capture_manager is
 		MAX_CODE_LEN_WIDTH_G            : integer := 5;
 		SEG_OUTPUT_WIDTH_G              : integer := 8;
 
-		TX_MEMORY_SIZE_G                : integer := 4;
+		TX_MEMORY_SIZE_G                : integer := 4000;
 		TX_MEMORY_ADDRESS_WIDTH_G       : integer := 12;
 		TX_MEMORY_WIDTH_G               : integer := 8;
 		
@@ -55,7 +55,13 @@ entity capture_manager is
 		led2_o  : out STD_LOGIC;
 		led3_o  : out STD_LOGIC;
 		
-		sw_i : in STD_LOGIC_VECTOR(6 downto 0)
+		sw_i : in STD_LOGIC_VECTOR(6 downto 0);
+
+		--Testbench connections
+		CCITT4_run_len_code_o       : out STD_LOGIC_VECTOR (MAX_CODE_LEN_G-1 downto 0);
+		CCITT4_run_len_code_width_o : out STD_LOGIC_VECTOR (MAX_CODE_LEN_WIDTH_G-1 downto 0);
+		CCITT4_run_len_code_valid_o : out STD_LOGIC;
+		CCITT4_frame_finished_o     : out STD_LOGIC
 	);
 end capture_manager;
 
@@ -127,23 +133,8 @@ architecture Behavioral of capture_manager is
 	signal fsync_prev                    : STD_LOGIC             := '0';
 	signal tx_mem_overflow               : std_logic             := '0';
 
-	component CCITT4_v2
-		port(
-			pclk_i               : in  STD_LOGIC;
-			fsync_i              : in  STD_LOGIC;
-			rsync_i              : in  STD_LOGIC;
-			pix_i                : in  STD_LOGIC;
-			run_len_code_o       : out STD_LOGIC_VECTOR(MAX_CODE_LEN_G - 1 downto 0);
-			run_len_code_width_o : out STD_LOGIC_VECTOR(MAX_CODE_LEN_WIDTH_G - 1 downto 0);
-			run_len_code_valid_o : out STD_LOGIC;
-			frame_finished_o     : out STD_LOGIC;
-			fax4_x               : buffer unsigned(COL_INDEX_WIDTH_G - 1 downto 0) := (others => '0');
-			fax4_y               : buffer unsigned(ROW_INDEX_WIDTH_G - 1 downto 0) := (others => '0')
-		);
-	end component CCITT4_v2;
-
 begin
-	CCITT4_ins : CCITT4_v2
+	CCITT4_ins : entity work.CCITT4_v2
 	Port Map(
 		pclk_i    => pclk_i,
 		fsync_i  => fsync_i,
@@ -152,9 +143,7 @@ begin
 		run_len_code_o  => run_len_code_CCITT4,
 		run_len_code_width_o  => run_len_code_width_CCITT4,
 		run_len_code_valid_o  => run_len_code_valid_CCITT4,
-		frame_finished_o  => frame_finished_CCITT4,
-		fax4_x => fax4_x,
-		fax4_y => fax4_y
+		frame_finished_o  => frame_finished_CCITT4
 	);
 
 	byte_segmentation_ins_v5 : entity work.byte_segmentation_v5
@@ -383,5 +372,10 @@ begin
 	vgaBlue <= pix_data_i(7 downto 6) when sw_i(0) = '0' else pix_data_i(7) & pix_data_i(7);
 	vga_fsync_o <= fsync_i;
 	vga_rsync_o <= rsync_i;
+	
+	CCITT4_run_len_code_o <= run_len_code_CCITT4;
+	CCITT4_run_len_code_width_o <= run_len_code_width_CCITT4;
+	CCITT4_run_len_code_valid_o <= run_len_code_valid_CCITT4;
+	CCITT4_frame_finished_o <= frame_finished_CCITT4;
 
 end Behavioral;
