@@ -185,14 +185,6 @@ begin
 	end process rd_addr_cnt_process;
 	
 	--Multiplexer 1(input to RAM 1)
---	wr1 <=     wr1_i when (mux_sel + to_unsigned(0,2)) = to_unsigned(0,2)
---			else wr2_i when (mux_sel + to_unsigned(0,2)) = to_unsigned(1,2)
---			else wr3_i when (mux_sel + to_unsigned(0,2)) = to_unsigned(2,2)
---			else wr4_i when (mux_sel + to_unsigned(0,2)) = to_unsigned(3,2);
---	d1_in <=   d1_i when (mux_sel + to_unsigned(0,2)) = to_unsigned(0,2)
---			else d2_i when (mux_sel + to_unsigned(0,2)) = to_unsigned(1,2)
---			else d3_i when (mux_sel + to_unsigned(0,2)) = to_unsigned(2,2)
---			else d4_i when (mux_sel + to_unsigned(0,2)) = to_unsigned(3,2);
 	mux1_process : process(clk_i)
 	begin
 		if clk_i'event and clk_i = '0' then
@@ -213,14 +205,6 @@ begin
 	end process mux1_process;
 	
 	--Multiplexer 2(input to RAM 2)
---	wr2 <=     wr1_i when (mux_sel + to_unsigned(1,2)) = to_unsigned(0,2)
---			else wr2_i when (mux_sel + to_unsigned(1,2)) = to_unsigned(1,2)
---			else wr3_i when (mux_sel + to_unsigned(1,2)) = to_unsigned(2,2)
---			else wr4_i when (mux_sel + to_unsigned(1,2)) = to_unsigned(3,2);
---	d2_in <=   d1_i when (mux_sel + to_unsigned(1,2)) = to_unsigned(0,2)
---			else d2_i when (mux_sel + to_unsigned(1,2)) = to_unsigned(1,2)
---			else d3_i when (mux_sel + to_unsigned(1,2)) = to_unsigned(2,2)
---			else d4_i when (mux_sel + to_unsigned(1,2)) = to_unsigned(3,2);
 	mux2_process : process(clk_i)
 	begin
 		if clk_i'event and clk_i = '0' then
@@ -241,14 +225,6 @@ begin
 	end process mux2_process;
 	
 	--Multiplexer 3(input to RAM 3)
---	wr3 <=     wr1_i when (mux_sel + to_unsigned(2,2)) = to_unsigned(0,2)
---			else wr2_i when (mux_sel + to_unsigned(2,2)) = to_unsigned(1,2)
---			else wr3_i when (mux_sel + to_unsigned(2,2)) = to_unsigned(2,2)
---			else wr4_i when (mux_sel + to_unsigned(2,2)) = to_unsigned(3,2);
---	d3_in <=   d1_i when (mux_sel + to_unsigned(2,2)) = to_unsigned(0,2)
---			else d2_i when (mux_sel + to_unsigned(2,2)) = to_unsigned(1,2)
---			else d3_i when (mux_sel + to_unsigned(2,2)) = to_unsigned(2,2)
---			else d4_i when (mux_sel + to_unsigned(2,2)) = to_unsigned(3,2);
 	mux3_process : process(clk_i)
 	begin
 		if clk_i'event and clk_i = '0' then
@@ -269,14 +245,6 @@ begin
 	end process mux3_process;
 	
 	--Multiplexer 4(input to RAM 4)
---	wr4 <=     wr1_i when (mux_sel + to_unsigned(3,2)) = to_unsigned(0,2)
---			else wr2_i when (mux_sel + to_unsigned(3,2)) = to_unsigned(1,2)
---			else wr3_i when (mux_sel + to_unsigned(3,2)) = to_unsigned(2,2)
---			else wr4_i when (mux_sel + to_unsigned(3,2)) = to_unsigned(3,2);
---	d4_in <=   d1_i when (mux_sel + to_unsigned(3,2)) = to_unsigned(0,2)
---			else d2_i when (mux_sel + to_unsigned(3,2)) = to_unsigned(1,2)
---			else d3_i when (mux_sel + to_unsigned(3,2)) = to_unsigned(2,2)
---			else d4_i when (mux_sel + to_unsigned(3,2)) = to_unsigned(3,2);
 	mux4_process : process(clk_i)
 	begin
 		if clk_i'event and clk_i = '0' then
