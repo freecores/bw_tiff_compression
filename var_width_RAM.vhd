@@ -142,16 +142,12 @@ begin
 				
 			if reset_i = '1' then
 				mux_sel <= (others => '0');
---			if    wr4_i = '0' and wr3_i = '0' and wr2_i = '0' and wr1_i = '0' then
---				mux_sel <= mux_sel - to_unsigned(0,2);
 			elsif    wr4_i = '0' and wr3_i = '0' and wr2_i = '0' and wr1_i = '1' then
 				mux_sel <= mux_sel - to_unsigned(1,2);
 			elsif wr4_i = '0' and wr3_i = '0' and wr2_i = '1' and wr1_i = '1' then
 				mux_sel <= mux_sel - to_unsigned(2,2);
 			elsif wr4_i = '0' and wr3_i = '1' and wr2_i = '1' and wr1_i = '1' then
 				mux_sel <= mux_sel - to_unsigned(3,2);
---			elsif wr4_i = '1' and wr3_i = '1' and wr2_i = '1' and wr1_i = '1' then
---				mux_sel <= mux_sel - to_unsigned(4,2);
 			else
 				mux_sel <= mux_sel - to_unsigned(0,2);
 			end if;
